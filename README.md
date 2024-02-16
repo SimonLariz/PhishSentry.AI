@@ -1,5 +1,5 @@
-## PhishSentry.AI 
-# by Simon Lariz, Miguel Mancera, Katherine Chen, Rey Urquiza, Katie Tran
+# PhishSentry.AI 
+## by Simon Lariz, Miguel Mancera, Katherine Chen, Rey Urquiza, Katie Tran
 
 This detector aims to confront the ever-evolving sophistication of phishing attempts, furnishing users with a proactive defense. It emphasizes seamless integration with popular email clients, a stringent testing regime to optimize detection accuracy, and the commitment to regular updates to proactively respond to emerging threats. Through these measures, the proposal envisions a substantial reduction in successful phishing attacks, bolstering trust in digital communications. The document offers in-depth technical insights into the detector’s architecture, algorithms, development timeline, and resource requirements, forming the bedrock for a user-centric and preemptive email security solution. Rigorous testing serves as a pivotal project goal, fine-tuning detection algorithms to minimize false positives while maximizing true positives. The commitment to regular updates remains a cornerstone, ensuring adaptability in countering perpetually evolving phishing tactics. These collective efforts seek to establish a resilient and intelligent defense against email phishing, ultimately enhancing the digital safety of individuals and organizations to unprecedented levels.
 
