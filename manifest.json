@@ -1,14 +1,15 @@
 {
     "manifest_version": 3,
-    "name": "Hello Extensions",
-    "description": "Base Level Extension",
+    "name": "PhishSentry.AI",
+    "description": "PhishSentry.AI is a browser extension that uses machine learning to detect phishing websites. It is a free and open-source project that aims to protect users from phishing attacks.",
     "version": "1.0",
     "action": {
-        "default_popup": "hello.html",
-        "default_icon": "hello_extensions.png"
+        "default_popup": "popup/popup.html",
+        "default_icon": "images/logo.png"
     },
     "permissions": [
         "scripting",
-        "activeTab"
+        "activeTab",
+        "downloads"
     ]
 }
