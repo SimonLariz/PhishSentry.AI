@@ -8,7 +8,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/SimonLariz/PhishSentry.AI">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -149,7 +149,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [stars-shield]: https://img.shields.io/github/stars/SimonLariz/PhishSentry.AI.svg?style=for-the-badge
 [stars-url]: https://github.com/SimonLariz/PhishSentry.AI/stargazers
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[license-url]: https://github.com/SimonLariz/PhishSentry.AI/blob/main/LICENSE
 
 [product-screenshot]: images/screenshot.png
 
