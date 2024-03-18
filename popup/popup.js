@@ -1,4 +1,3 @@
-// Getting the buttons is required to add event listeners to them
 
 // Get the page URL button
 const page_url_button = document.getElementById('getPageUrl');
@@ -15,10 +14,10 @@ page_url_button.addEventListener('click', function() {
 });
 
 // Get HTML button
-const html_button = document.getElementById('getHTML');
+const parse_button = document.getElementById('parseEmail');
 
 // Add a click event listener to the button ( if the button is clicked, the current page HTML will be logged and saved to a file)
-html_button.addEventListener('click', function() {
+parse_button.addEventListener('click', function() {
   // Execute the inject script in the active tab
   chrome.tabs.query({ active: true, currentWindow: true }, (activeTabs) => {
     if (activeTabs.length === 0) {
@@ -37,15 +36,36 @@ html_button.addEventListener('click', function() {
 // Add a listener for the message from the inject script (scripts/inject.js, sending the HTML content back to the popup script)
 chrome.runtime.onMessage.addListener((message) => {
   if (message.htmlContent) {
-    // Update the status with the received HTML (partially truncated)
-    var pageHTML = document.getElementById('pageHTML');
-    pageHTML.textContent = message.htmlContent.slice(0, 100) + '...'; 
-    // Prompt the user to save the HTML content to a file 
-   //  (mostly for testing to see if all HTML content is received correctly)
-    var blob = new Blob([message.htmlContent], { type: "text/html" });
-    saveAs(blob, "page.html");
+    // Create DOM Parser
+    var parser = new DOMParser();
+    const doc = parser.parseFromString(message.htmlContent, 'text/html');
+
+    // Extract the sender
+    const senderRow = Array.from(doc.querySelectorAll('tr'))
+      .find(row => Array.from(row.querySelectorAll('th')).some(th => th.textContent.includes('From:')));
+    const senderElement = senderRow ? senderRow.querySelector('td') : null;
+    const sender = senderElement ? senderElement.textContent.trim() : '';
+
+    // Extract the subject
+    const subjectRow = Array.from(doc.querySelectorAll('tr'))
+      .find(row => Array.from(row.querySelectorAll('th')).some(th => th.textContent.includes('Subject:')));
+    const subjectElement = subjectRow ? subjectRow.querySelector('td') : null;
+    const subject = subjectElement ? subjectElement.textContent.trim() : '';
+    
+    // Extract email body 
+    const preElement = doc.querySelector('pre.raw_message_text');
+    const emailBody = preElement ? preElement.textContent : '';
+
+    // Prompt user to save the sender, subject, and email body to a file
+    var blob = new Blob([`From: ${sender}\n\nSubject: ${subject}\n\nEmail Body: ${emailBody}`], { type: "text/plain" });
+    saveAs(blob, "email.txt");
+
+  }
+  else {
+    console.error("No HTML content received!");
   }
 });
+
 
 // Function to save the HTML content to a file
 function saveAs(blob, filename) {
