@@ -1,29 +1,24 @@
-import numpy as np
+import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn import datasets
-import matplotlib.pyplot as plt
 from logisticRegression import LogisticRegression
+from sklearn.metrics import accuracy_score
+import pickle
 
-bc = datasets.load_breast_cancer()
-i = 1
-for x in bc.data:
-    print(f'{i}: {x}')
-    i = i + 1
+data = pd.read_csv("emails.csv")
 
-quit()
-X, y = bc.data, bc.target
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1234)
+X = data.drop(columns=['Email No.', 'Prediction'])
+y = data['Prediction']
 
-clf = LogisticRegression()
-clf.fit(X_train, y_train)
-y_pred = clf.predict(X_test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=1234)
 
-def accuracy(y_pred, y_test):
-    return np.sum(y_pred == y_test)/len(y_test)
+model = LogisticRegression()
+model.fit(X_train, y_train)
 
-acc = accuracy(y_pred, y_test)
-print(acc)
+# save fitted model as a file
+with open('logistic_regression_model.pkl', 'wb') as file:
+    pickle.dump(model, file)
 
-# [ ("Title", "Subject", "Sender", "Body", "Atatchments?", "Image file?", "Spam?"), 
-#   (),
-#   ()]
+y_pred = model.predict(X_test)
+
+accuracy = accuracy_score(y_test, y_pred) * 100
+print(f'Accuracy: {accuracy}%')
