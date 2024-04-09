@@ -10,7 +10,6 @@
     "permissions": [
         "scripting",
         "activeTab",
-        "downloads",
-        "https://localhost:4443/*"
+        "downloads"
     ]
 }

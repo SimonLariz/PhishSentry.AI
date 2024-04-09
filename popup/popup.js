@@ -80,6 +80,8 @@ function saveAs(blob, filename) {
 const post_request_button = document.getElementById('postRequest');
 
 post_request_button.addEventListener('click', async function() {
+  var status = document.getElementById('response');
+  var responseData = ""
   try {
     const data = {
       //Fill in the data to be sent
@@ -97,12 +99,12 @@ post_request_button.addEventListener('click', async function() {
 
     // Handle the response
     if (response.ok) {
-      const responseData = await response.json();
-      console.log('Response:', responseData);
+      responseData = await response.json();
     } else {
-      console.error('Error:', response.statusText);
+      responseData = "Error, make sure the server is running!"
     }
   } catch (error) {
-    console.error('Error:', error);
+    responseData = "Error, make sure the server is running!"
   }
+  status.textContent = responseData;
 });
