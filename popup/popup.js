@@ -75,3 +75,36 @@ function saveAs(blob, filename) {
     saveAs: true // Prompt the user to save the file
   });
 }
+
+// Get Post Request button
+const post_request_button = document.getElementById('postRequest');
+
+post_request_button.addEventListener('click', async function() {
+  var status = document.getElementById('response');
+  var responseData = ""
+  try {
+    const data = {
+      //Fill in the data to be sent
+      message: 'Hello from the popup!',
+    };
+    const formattedData = new URLSearchParams(data).toString();
+
+    const response = await fetch('https://localhost:4443/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: formattedData,
+    });
+
+    // Handle the response
+    if (response.ok) {
+      responseData = await response.json();
+    } else {
+      responseData = "Error, make sure the server is running!"
+    }
+  } catch (error) {
+    responseData = "Error, make sure the server is running!"
+  }
+  status.textContent = responseData;
+});
