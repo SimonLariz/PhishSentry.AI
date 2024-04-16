@@ -22,17 +22,22 @@ class LogisticRegression():
             predictions = sigmoid(linear_pred)
 
             dw = (1/n_samples) * np.dot(X.T, (predictions - y))
-            # print(dw)
             db = (1/n_samples) * np.sum(predictions - y)
-            # print(db)
 
             self.weights = self.weights - self.lr * dw
             self.bias = self.bias - self.lr * db
 
 
-
-    def predict(self, X):
+    # returns list, [class prediction(0 for not spam, 1 for spam), confidence percentage NOT spam, confidence percentage that IS spam]
+    def predict_proba(self, X):
         linear_pred = np.dot(X, self.weights) + self.bias
         y_pred = sigmoid(linear_pred)
+
+        # Turn np.array into list
+        y_pred = y_pred.tolist()
+
         class_pred = [0 if y<=0.5 else 1 for y in y_pred]
-        return class_pred
+
+        x_pred = [1 - y_pred[0]]
+
+        return class_pred + x_pred + y_pred
