@@ -1,28 +1,41 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      body {
-        width: 300px;
-        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
-        padding: 20px;
-        background-color: #120e24;
-        color: white;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body>
-    <h1>Phishing Email Scanner</h1>
-    <button id="getPageUrl">Get Page URL</button>
-    <p>Page URL: <span id="pageUrl"></span></p>
-
-    <button id="parseEmail">Parse Email</button>
-    <p>Email: <span id="email"></span></p>
-
-    <button id="postRequest">Send Post Request</button>
-    <p>Response: <span id="response"></span></p>
-
+    <div class="container">
+      <div class="header">
+        <i class="fas fa-shield-alt icon"></i>
+        <h1>Phishing Email Scanner</h1>
+      </div>
+      <p>Scan your emails for potential phishing attempts.</p>
+      <button class="button" id="gettingStarted" onclick="openImage()">
+        <i class="fas fa-info-circle"></i> Getting Started
+      </button>
+      <button class="button" id="parseEmail">
+        <i class="fas fa-envelope"></i> Scan Email
+      </button>
+      <p id="result">
+        Result: <span id="response"></span>
+      </p>
+      <div class="footer">
+        <a href="https://github.com/your-username/your-repository"
+          target="_blank" class="button small">
+          <i class="fab fa-github"></i> Report an Issue
+        </a>
+      </div>
+    </div>
     <script src="popup.js"></script>
     <script src="scripts/inject.js"></script>
+    <script>
+    function openImage() {
+      window.open("path/to/your/image.jpg", "_blank");
+    }
+  </script>
   </body>
 </html>

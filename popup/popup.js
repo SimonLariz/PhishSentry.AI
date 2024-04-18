@@ -1,35 +1,34 @@
 
-// Get the page URL button
-const page_url_button = document.getElementById('getPageUrl');
+//gettingStarted button
+const gettingStarted_button = document.getElementById('gettingStarted');
 
-// Add a click event listener to the button ( if the button is clicked, the current page URL will be logged)
-page_url_button.addEventListener('click', function() {
-  // Get the active tab and URL
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    var activeTab = tabs[0];
-    var pageUrl = document.getElementById('pageUrl');
-    // Update the status with the received URL
-    pageUrl.textContent = activeTab.url;
-  });
+// Add a click event listener to the button
+gettingStarted_button.addEventListener('click', function() {
+  //Open a new tab with the getting started page
+  chrome.tabs.create({ url: '../images/gettingstarted.svg' });
 });
 
-// Get HTML button
+// parseEmail button
 const parse_button = document.getElementById('parseEmail');
 
-// Add a click event listener to the button ( if the button is clicked, the current page HTML will be logged and saved to a file)
+// Add a click event listener to the button 
 parse_button.addEventListener('click', function() {
+  //Log button pressed 
+  console.log("Button pressed!");
   // Execute the inject script in the active tab
   chrome.tabs.query({ active: true, currentWindow: true }, (activeTabs) => {
     if (activeTabs.length === 0) {
       console.error("No active tab found!");
       return;
     }
+    console.log("Active tab found!");
     const activeTabId = activeTabs[0].id; 
     // Use the activeTabId for further processing (e.g., inject script)
     chrome.scripting.executeScript({
       target: { tabId: activeTabId },
       files: ['scripts/inject.js']
     });
+    console.log("Inject script executed!");
   });
 });
 
@@ -56,30 +55,61 @@ chrome.runtime.onMessage.addListener((message) => {
     const preElement = doc.querySelector('pre.raw_message_text');
     const emailBody = preElement ? preElement.textContent : '';
 
-    // Prompt user to save the sender, subject, and email body to a file
-    var blob = new Blob([`From: ${sender}\n\nSubject: ${subject}\n\nEmail Body: ${emailBody}`], { type: "text/plain" });
-    saveAs(blob, "email.txt");
-
+    // Send email content to the server
+    sendEmailToServer(sender, subject, emailBody);
   }
   else {
     console.error("No HTML content received!");
   }
 });
 
+// Function to send email content to the server
+function sendEmailToServer(sender, subject, emailBody) {
+  var emailData = {
+    from: sender,
+    subject: subject,
+    body: emailBody
+  };
+  var status = document.getElementById('response');
+  var responseData = "";
 
-// Function to save the HTML content to a file
-function saveAs(blob, filename) {
-  chrome.downloads.download({
-    url: URL.createObjectURL(blob),
-    filename: filename,
-    saveAs: true // Prompt the user to save the file
-  });
+  try {
+    const data = {
+      message: JSON.stringify(emailData)
+    };
+
+    fetch('https://localhost:4443/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+       else {
+        throw new Error("Error, make sure the server is running!");
+      }
+    })
+    .then(responseData => {
+      var message = responseData.message;
+      status.textContent = message;
+    })
+    .catch(error => {
+      status.textContent = error.message;
+    });
+  } catch (error) {
+    status.textContent = "Error, make sure the server is running!";
+  }
 }
 
 // Get Post Request button
 const post_request_button = document.getElementById('postRequest');
 
 post_request_button.addEventListener('click', async function() {
+  // Get raw email content
   var status = document.getElementById('response');
   var responseData = ""
   try {

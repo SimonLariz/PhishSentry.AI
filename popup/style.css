@@ -1,0 +1,118 @@
+body {
+    width: 350px;
+    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+    margin: 0;
+    padding: 30px;
+    background-color: #111;
+    background-image: linear-gradient(135deg, #111 0%, #1c1c1c 100%);
+    color: #fff;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+
+  .button {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 16px 32px; /* Reduced padding by 20% */
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 1.04rem; /* Reduced font size by 15% */
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  .button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .button i {
+    margin-right: 10px;
+    font-size: 1.4rem;
+  }
+  
+  p {
+    margin-top: 20px;
+    line-height: 1.6;
+  }
+  
+  #result {
+    color: #00ffff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: rgba(0, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+  
+  .container {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    height: 480px;
+  }
+  
+  .container::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #0066ff, #00ffff);
+    border-radius: 12px;
+    z-index: -1;
+    filter: blur(20px);
+    opacity: 0.5;
+  }
+  
+  .icon {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+
+  .footer {
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  .footer .button {
+    text-decoration: none;
+  }
+
+  .footer .button i {
+    margin-right: 5px;
+  }
+
+  .footer .button.small {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .header .icon {
+    margin-right: 10px;
+  }
+  
