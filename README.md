@@ -69,7 +69,7 @@ Here's why:
 
 ### Built With
 
-PhishSentry.AI is built with the following technologies:
+PhishSentry.AI is built with these following technologies:
 
 
 * [![Javascript][Javascript]][Javascript-url]
